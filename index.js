@@ -7,6 +7,11 @@ const port = 3000;
 const url =
   "https://ipfs.io/ipfs/bafybeibo2oniklnbpcyrciqrserby3qxnug27mvzxan7z4xrsdway6pijq/";
 
+app.use((req, res, next) => {
+  res.setHeader("Content-Type", "application/json");
+  next();
+});
+
 app.get("/:id", (req, res) => {
   const id = req.params.id;
 
