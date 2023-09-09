@@ -13,7 +13,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/:id", (req, res) => {
+app.get("/:id", async (req, res) => {
   let { id } = req.params;
 
   if (id.endsWith(".json")) id = id.split(".json")[0];
@@ -25,12 +25,20 @@ app.get("/:id", (req, res) => {
         "Invalid request. Please provide a valid id parameter between 1 and 6999.",
     });
 
-  axios.get(url + id + ".json").then((response) => {
+  try {
+    const response = await axios.get(url + id + ".json");
     res.json(response.data);
-  });
+  } catch (err) {
+    console.error("Error fetching data from url:", err.message);
+
+    res.status(500).json({
+      code: 500,
+      message: "Internal Server Error. Failed to fetch data from IPFS.",
+    });
+  }
 });
 
-app.use("/", (req, res) => {
+app.use("*", (req, res) => {
   res.status(400).json({
     code: 400,
     message:
