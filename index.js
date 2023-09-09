@@ -4,6 +4,7 @@ const axios = require("axios");
 const app = express();
 const port = process.env.PORT || 3000;
 
+const max = 6999;
 const url =
   "https://ipfs.io/ipfs/bafybeibo2oniklnbpcyrciqrserby3qxnug27mvzxan7z4xrsdway6pijq/";
 
@@ -15,7 +16,7 @@ app.use((req, res, next) => {
 app.get("/:id", (req, res) => {
   const id = req.params.id;
 
-  if (!id || id > 6999 || id < 1 || isNaN(id))
+  if (!id || id > max || id < 1 || isNaN(id))
     return res.status(400).json({
       code: 400,
       message:
