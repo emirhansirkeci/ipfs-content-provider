@@ -14,7 +14,9 @@ app.use((req, res, next) => {
 });
 
 app.get("/:id", (req, res) => {
-  const id = req.params.id;
+  let { id } = req.params;
+
+  if (id.endsWith(".json")) id = id.split(".json")[0];
 
   if (!id || id > max || id < 1 || isNaN(id))
     return res.status(400).json({
