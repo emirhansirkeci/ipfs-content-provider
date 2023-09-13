@@ -42,7 +42,7 @@ app.use("*", (req, res) => {
   res.status(400).json({
     code: 400,
     message:
-      "Invalid request. You must specify a valid id parameter in the URL.", // aynı şekilde burası için de kullanıcı dostu bir hata mesajı lazım
+      "Invalid request. You must specify a valid id parameter in the URL.",
   });
 });
 
